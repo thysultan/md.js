@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>example</title>
+	<script src='../md.js'></script>
+</head>
+<body>
+	<script>
+		var markdown = (
+			'Use the `printf()` function.\n'+
+
+			'```javascript\n\n\t\tvar i = 10;\nvar foo = 2;\n```' +
+
+		`
+			# Heading 1
+			## Heading 2
+			### Heading 3
+			#### *Heading 4*
+
+			![Alt text](https://thysultan.com/dio/assets/logo.svg)
+
+			This is [an example](http://example.com/ "Title") inline link.
+
+			***
+
+			Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
+			Cupiditate doloremque sed vero __excepturi__.
+
+
+			Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
+			Cupiditate doloremque sed vero **excepturi**.
+
+			[a link](http://google.com)
+
+			- ul list 1
+			- ul list 2
+
+			* ul list 1
+			* ul list 2
+
+			+ ul list 1
+			+ ul list 2
+
+			1. ol list 1
+			2. ol list 2
+
+			> hello world what is this
+
+			---
+
+			<table>
+			    <tr>
+			        <td>Foo</td>
+			    </tr>
+			</table>
+
+			Another paragraphs
+		`);
+
+		console.log(md(markdown));
+	</script>
+</body>
+</html>
