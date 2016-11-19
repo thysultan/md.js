@@ -35,10 +35,10 @@
 	var paragraphsTemplate = '<p>$1$2</p>';
 
 	var horizontalRegExp = /^.*?(?:---|\*\*\*)/gm;
-	var horizontalTemplate = '<hr/>';
+	var horizontalTemplate = '<hr>';
 
 	var strongRegExp = /(?:\*\*|\_\_)([^\*_]+?)(?:\*\*|\_\_)/gm;
-	var strongTemplate = '<strong></strong>';
+	var strongTemplate = '<strong>$1</strong>';
 
 	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
 	var emphasisTemplate = '<em>$1</em>';
@@ -58,7 +58,7 @@
 	var listOlTemplate = '<ol><li>$1</li></ol>';
 
 	var lineBreaksRegExp = /^\n\n+/gm;
-	var lineBreaksTemplate = '\n<br/>\n\n';
+	var lineBreaksTemplate = '<br>';
 
 
 	/**
@@ -132,7 +132,7 @@
 			var block = item.block;
 
 			markdown = markdown.replace(item.regex, function (match) {
-				return '<pre><code class="language-'+lang+'">'+block+'</code></pre>\n';
+				return '<pre><code class="language-'+lang+'">'+block+'</code></pre>';
 			});
 		}
 
