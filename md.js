@@ -19,7 +19,6 @@
 	}
 }(function () {
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
-	var removeWhiteSpaceTemp = /^[\t ]+|[\t ]$/gm;
 
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
 	var blockQuotesTemp = '<blockquote>$1</blockquote>';
