@@ -21,44 +21,44 @@
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
-	var blockQuotesTemp = '<blockquote>$1</blockquote>';
+	var blockQuotesTemplate = '<blockquote>$1</blockquote>';
 
 	var inlineCodeRegExp = /`([^`]+?)`/g;
-	var inlineCodeTemp = '<code>$1</code>';
+	var inlineCodeTemplate = '<code>$1</code>';
 
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
-	var imagesTemp = '<img src="$2" alt="$1">';
+	var imagesTemplate = '<img src="$2" alt="$1">';
 
 	var headingsRegExp = /(#+) +(.*)/gm;
 
 	var paragraphsRegExp = /^([^-><#\d\+\_\*\t\n\[\! \{])(.*)/gm;
-	var paragraphsTemp = '<p>$1$2</p>';
+	var paragraphsTemplate = '<p>$1$2</p>';
 
 	var horizontalRegExp = /^.*?(?:---|\*\*\*)/gm;
-	var horizontalTemp = '<hr/>';
+	var horizontalTemplate = '<hr/>';
 
 	var strongRegExp = /(?:\*\*|\_\_)([^\*_]+?)(?:\*\*|\_\_)/gm;
-	var strongTemp = '<strong></strong>';
+	var strongTemplate = '<strong></strong>';
 
 	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
-	var emphasisTemp = '<em>$1</em>';
+	var emphasisTemplate = '<em>$1</em>';
 
 	var linksWithTitleRegExp = /\[(.*)\]\((.*) "(.*)"\)/gm;
-	var linksWithTitleTemp = '<a href="$2" title="$3">$1</a>';
+	var linksWithTitleTemplate = '<a href="$2" title="$3">$1</a>';
 
 	var linksRegExp = /\[(.*)\]\((.*)\)/gm;
-	var linksTemp = '<a href="$2">$1</a>';
+	var linksTemplate = '<a href="$2">$1</a>';
 
-	var listUlRegExp1 = /^.*(?:-|\+|\*) (.*)/gm;
-	var listUlRegExp2 = /^.*(\<\/ul\>\n(.*)\<ul\>*)+/g;
-	var listUlTemp = '<ul><li>$1</li></ul>';
+	var listUlRegExp1 = /^.*?(?:-|\+|\*) (.*)/gm;
+	var listUlRegExp2 = /(\<\/ul\>\n(.*)\<ul\>*)+/g;
+	var listUlTemplate = '<ul><li>$1</li></ul>';
 
 	var listOlRegExp1 = /^.*?(?:\d.) (.*)/gm;
-	var listOlRegExp2 = /^.*?(\<\/ol\>\n(.*)\<ol\>*)+/g;
-	var listOlTemp = '<ol><li>$1</li></ol>';
+	var listOlRegExp2 = /(\<\/ol\>\n(.*)\<ol\>*)+/g;
+	var listOlTemplate = '<ol><li>$1</li></ol>';
 
 	var lineBreaksRegExp = /^\n\n+/gm;
-	var lineBreaksTemp = '\n<br/>\n\n';
+	var lineBreaksTemplate = '\n<br/>\n\n';
 
 
 	/**
@@ -86,13 +86,13 @@
 		markdown = markdown.replace(removeWhiteSpaceRegExp, '');
 
 		// blockquotes
-		markdown = markdown.replace(blockQuotesRegExp, blockQuotesTemp);
+		markdown = markdown.replace(blockQuotesRegExp, blockQuotesTemplate);
 
 		// inline code
-		markdown = markdown.replace(inlineCodeRegExp, inlineCodeTemp);
+		markdown = markdown.replace(inlineCodeRegExp, inlineCodeTemplate);
 
 		// images
-		markdown = markdown.replace(imagesRegExp, imagesTemp);
+		markdown = markdown.replace(imagesRegExp, imagesTemplate);
 
 		// headings
 		markdown = markdown.replace(headingsRegExp, function (match, hash, content) {
@@ -100,30 +100,30 @@
 		});
 
 		// unorderd lists
-		markdown = markdown.replace(listUlRegExp1, listUlTemp);
+		markdown = markdown.replace(listUlRegExp1, listUlTemplate);
 		markdown = markdown.replace(listUlRegExp2, '');
 
 		// ordered lists
-		markdown = markdown.replace(listOlRegExp1, listOlTemp);
+		markdown = markdown.replace(listOlRegExp1, listOlTemplate);
 		markdown = markdown.replace(listOlRegExp2, '');
 
 		// horizontal rule 
-		markdown = markdown.replace(horizontalRegExp, horizontalTemp);
+		markdown = markdown.replace(horizontalRegExp, horizontalTemplate);
 
 		// paragraphs
-		markdown = markdown.replace(paragraphsRegExp, paragraphsTemp);
+		markdown = markdown.replace(paragraphsRegExp, paragraphsTemplate);
 
 		// links with title
-		markdown = markdown.replace(linksWithTitleRegExp, linksWithTitleTemp);
+		markdown = markdown.replace(linksWithTitleRegExp, linksWithTitleTemplate);
 
 		// links
-		markdown = markdown.replace(linksRegExp, linksTemp);
+		markdown = markdown.replace(linksRegExp, linksTemplate);
 
 		// strong
-		markdown = markdown.replace(strongRegExp, strongTemp);
+		markdown = markdown.replace(strongRegExp, strongTemplate);
 
 		// emphasis
-		markdown = markdown.replace(emphasisRegExp, emphasisTemp);
+		markdown = markdown.replace(emphasisRegExp, emphasisTemplate);
 
 		// replace code block placeholders
 		for (var i = 0; i < index; i++) {
@@ -137,7 +137,7 @@
 		}
 
 		// line breaks
-		markdown = markdown.replace(lineBreaksRegExp, lineBreaksTemp);
+		markdown = markdown.replace(lineBreaksRegExp, lineBreaksTemplate);
 
 		return markdown;
 	}

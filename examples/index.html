@@ -39,12 +39,14 @@
 
 			* ul list 1
 			* ul list 2
+			* ul list 3
 
 			+ ul list 1
 			+ ul list 2
 
 			1. ol list 1
 			2. ol list 2
+			3. ol list 3
 
 			> hello world what is this
 
@@ -59,7 +61,9 @@
 			Another paragraphs
 		`);
 
-		console.log(md(markdown));
+		var html = md(markdown);
+		document.body.insertAdjacentHTML('beforeend', html);
+		console.log(html);
 	</script>
 </body>
 </html>
