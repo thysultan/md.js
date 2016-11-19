@@ -43,10 +43,10 @@
 	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
 	var emphasisTemplate = '<em>$1</em>';
 
-	var linksWithTitleRegExp = /\[(.*)\]\((.*) "(.*)"\)/gm;
+	var linksWithTitleRegExp = /\[(.*?)\]\((.*?) "(.*)"\)/gm;
 	var linksWithTitleTemplate = '<a href="$2" title="$3">$1</a>';
 
-	var linksRegExp = /\[(.*)\]\((.*)\)/gm;
+	var linksRegExp = /\[(.*?)\]\((.*?)\)/gm;
 	var linksTemplate = '<a href="$2">$1</a>';
 
 	var listUlRegExp1 = /^.*?(?:-|\+|\*) (.*)/gm;

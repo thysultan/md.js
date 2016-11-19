@@ -26,7 +26,7 @@ MD is a lightweight markdown parser
 #### CDN
 
 ```html
-<script src=https://unpkg.com/md.js@0.1.0/md.min.js></script>
+<script src=https://unpkg.com/md.js@0.1.1/md.min.js></script>
 ```
 
 #### npm
