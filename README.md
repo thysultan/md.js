@@ -37,4 +37,4 @@ npm install md.js --save
 
 # Examples
 
-[exampes 1](https://rawgit.com/thysultan/md.js/master/examples/index.html)
+[demo](https://rawgit.com/thysultan/md.js/master/examples/index.html)
