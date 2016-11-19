@@ -26,6 +26,8 @@
 	var inlineCodeRegExp = /`([^`]+?)`/g;
 	var inlineCodeTemplate = '<code>$1</code>';
 
+	var blockCodeRegExp = /```(.*)\n([^]+)```/gm;
+
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
 	var imagesTemplate = '<img src="$2" alt="$1">';
 
@@ -73,7 +75,7 @@
 
 		// collect code blocks and replace with placeholder
 		// we do this to avoid code blocks matching the paragraph regexp
-		markdown = markdown.replace(/```(.*)\n([^]+)```/gm, function (match, lang, block) {
+		markdown = markdown.replace(blockCodeRegExp, function (match, lang, block) {
 			var placeholder = '{code-block-'+index+'}';
 			var regex = new RegExp('{code-block-'+index+'}', 'g');
 

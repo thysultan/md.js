@@ -1,6 +1,21 @@
 # MD.js 
 
-MD is a lightweight markdown parser
+MD is a lightweight markdown parser with default support for langauge specific code blocks, for example
+
+```javascript
+// replace . with `
+...javascript
+	var int = 0;
+...
+```
+
+will output the following
+
+```html
+<pre><code class="language-javascript">
+	var int = 0;
+</code></pre>
+```
 
 - ~1kb minified+gzipped
 - ~1.5kb minified
