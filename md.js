@@ -37,7 +37,7 @@
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
 	var imagesTemplate = '<img src="$2" alt="$1">';
 
-	var headingsRegExp = /(#+) +(.*)/gm;
+	var headingsRegExp = /^(#+) +(.*)/gm;
 	var headingsTemplate = function (match, hash, content) {
 		var length = hash.length; return '<h'+length+'>'+content+'</h'+length+'>';
 	}
