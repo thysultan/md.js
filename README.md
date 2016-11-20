@@ -1,12 +1,17 @@
 # MD.js 
 
+- ~1kb minified+gzipped
+- ~1.5kb minified
+
+[![npm](https://img.shields.io/npm/v/md.js.svg?style=flat)](https://www.npmjs.com/package/md.js) [![licence](https://img.shields.io/badge/licence-MIT-blue.svg?style=flat)](https://github.com/thysultan/md.js/blob/master/LICENSE.md)
+
 MD is a lightweight markdown parser with default support for langauge specific code blocks, for example
 
 ```javascript
 // replace . with `
-...javascript
+```javascript
 	var int = 0;
-...
+```
 ```
 
 will output the following
@@ -16,11 +21,6 @@ will output the following
 	var int = 0;
 </code></pre>
 ```
-
-- ~1kb minified+gzipped
-- ~1.5kb minified
-
-[![npm](https://img.shields.io/npm/v/md.js.svg?style=flat)](https://www.npmjs.com/package/md.js) [![licence](https://img.shields.io/badge/licence-MIT-blue.svg?style=flat)](https://github.com/thysultan/md.js/blob/master/LICENSE.md)
 
 ## Browser Support
 
@@ -41,7 +41,7 @@ will output the following
 #### CDN
 
 ```html
-<script src=https://unpkg.com/md.js@0.1.1/md.min.js></script>
+<script src=https://unpkg.com/md.js@0.1.2/md.min.js></script>
 ```
 
 #### npm
