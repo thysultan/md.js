@@ -1,10 +1,4 @@
 var markdown = (
-	`
-		<IMG SRC="javascript:alert('XSS');">
-
-		<a href="javascript:alert('xss')">*you*</a>
-	`+
-
 	'Use the `printf()` function.\n'+
 
 	'```javascript\n\n\t\tvar i = 10;\nvar foo = 2;\n<script>1</script>\n```' +
@@ -91,6 +85,22 @@ var markdown = (
 
 	Another paragraphs # Heading, will not match this
 	Escape \* should world and so should \#
+
+	## XSS Tests
+
+	<IMG SRC="javascript:alert('XSS');">
+
+	<a href="javascript:alert('xss')">*you*</a>
+
+	
+
+	<IMG SRC= onmouseover="alert('xxs')">
+
+	<IMG """><SCRIPT>alert("XSS")</SCRIPT>">
+
+	<IMG SRC="jav	ascript:alert('XSS');">
+
+	<IMG SRC="jav&#x0A;ascript:alert('XSS');">
 `);
 
 // markdown = '#  Title\n\nAnd *now* [a link](http://www.google.com) to **follow** and [another](http://yahoo.com/).\n\n* One\n* Two\n* Three\n\n## Subhead\n\nOne **two** three **four** five.\n\nOne __two__ three _four_ five __six__ seven _eight_.\n\n1. One\n2. Two\n3. Three\n\nMore text with `inline($code)` and :"quote": sample.\n\n> A block quote\n> across two lines.\nMore text...';
