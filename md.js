@@ -36,8 +36,8 @@
 		var length = hash.length; return '<h'+length+'>'+content+'</h'+length+'>';
 	}
 
-	var headingsCommonh2RegExp = /(.*)\n-+/gm;
-	var headingsCommonh1RegExp = /(.*)\n=+/gm;
+	var headingsCommonh2RegExp = /^[^\n\t ](.*)\n-+/gm;
+	var headingsCommonh1RegExp = /^[^\n\t ](.*)\n=+/gm;
 	var headingsCommonh1Template = '<h1>$1</h1>';
 	var headingsCommonh2Template = '<h2>$1</h2>';
 
