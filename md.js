@@ -26,6 +26,14 @@
 
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
+	var htmlFilterRegExp = /(<.*>[\t ]*\n^.*)/gm;
+	var htmlFilterTemplate = function (match, group1) { 
+		return group1.replace(/(^\n|$\n)/gm, '');
+	};
+
+	var cssFilterRegExp = /(<style>[^]*<\/style>)/gm;
+	var cssFilterTemplate = htmlFilterTemplate;
+
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
 	var blockQuotesTemplate = '<blockquote>$1</blockquote>';
 
@@ -40,7 +48,7 @@
 	var headingsRegExp = /^(#+) +(.*)/gm;
 	var headingsTemplate = function (match, hash, content) {
 		var length = hash.length; return '<h'+length+'>'+content+'</h'+length+'>';
-	}
+	};
 
 	var headingsCommonh2RegExp = /^([^\n\t ])(.*)\n----+/gm;
 	var headingsCommonh1RegExp = /^([^\n\t ])(.*)\n====+/gm;
@@ -122,6 +130,10 @@
 				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
 				// horizontal rule 
 				.replace(horizontalRegExp, horizontalTemplate)
+				// filter html
+				.replace(htmlFilterRegExp, htmlFilterTemplate)
+				// filter css
+				.replace(cssFilterRegExp, cssFilterTemplate)
 				// paragraphs
 				.replace(paragraphsRegExp, paragraphsTemplate)
 				// links with title
