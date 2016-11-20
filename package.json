@@ -23,7 +23,7 @@
 		"url": "https://github.com/thysultan/md.js/issues"
 	},
 	"scripts": {
-		"test": "node ./tests/index.js"
+		"test": "node ./tests/"
 	},
 	"files": ["md.min.js", "md.js"]
 }

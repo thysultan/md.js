@@ -62,7 +62,7 @@
 	var paragraphsRegExp = /^([^-><#\d\+\_\*\t\n\[\! \{])(.*)/gm;
 	var paragraphsTemplate = '<p>$1$2</p>';
 
-	var horizontalRegExp = /^.*?(?:---|\*\*\*)/gm;
+	var horizontalRegExp = /^.*?(?:---|\*\*\*|- - -|\* \* \*)/gm;
 	var horizontalTemplate = '<hr>';
 
 	var strongRegExp = /(?:\*\*|\_\_)([^\*_]+?)(?:\*\*|\_\_)/gm;
@@ -71,11 +71,11 @@
 	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
 	var emphasisTemplate = '<em>$1</em>';
 
-	var linksRegExp = /\[(.*?)\]\((.*?)(?:|"(.*)")\)+/gm;
+	var linksRegExp = /\[(.*?)\]\(([^\t\n ]*)(?:| "(.*)")\)+/gm;
 	var linksTemplate = function (match, group1, group2, group3) {
 		var link = group2.replace(escapeQuotesRegExp, "'");
 		var text = group1.replace(escapeQuotesRegExp, "'");
-		var title = group3 ? 'title="'+group3.replace(escapeQuotesRegExp, "'")+'"' : '';
+		var title = group3 ? ' title="'+group3.replace(escapeQuotesRegExp, "'")+'"' : '';
 
 		return '<a href="'+link+'"'+title+'>'+text+'</a>';
 	};
@@ -131,12 +131,12 @@
 				.replace(headingsCommonh1RegExp, headingsCommonh1Template)
 				// headings h2 (commonmark)
 				.replace(headingsCommonh2RegExp, headingsCommonh2Template)
+				// horizontal rule 
+				.replace(horizontalRegExp, horizontalTemplate)
 				// unorderd lists
 				.replace(listUlRegExp1, listUlTemplate).replace(listUlRegExp2, '')
 				// ordered lists
 				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
-				// horizontal rule 
-				.replace(horizontalRegExp, horizontalTemplate)
 				// filter html
 				.replace(htmlFilterRegExp, htmlFilterTemplate)
 				// filter css
