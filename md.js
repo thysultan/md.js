@@ -21,6 +21,9 @@
 	var XSSFilterRegExp = /<script>([^]+?)<\/script>/gm;
 	var XSSFilterTemplate = '&lt;script&gt;$1&lt;/script&gt;';
 
+	var XSSFilterHrefRegExp = /(javascript)[\n\t ]*:/gm;
+	var XSSFilterHrefTemplate = '#$1&#58;';
+
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
@@ -87,7 +90,7 @@
 		// format, removes tabs, leading and trailing spaces
 		markdown = (
 			markdown
-				// convert <script> tags
+				// XSS script tags
 				.replace(XSSFilterRegExp, XSSFilterTemplate)
 				// collect code blocks and replace with placeholder
 				// we do this to avoid code blocks matching the paragraph regexp
@@ -114,11 +117,9 @@
 				// headings h2 (commonmark)
 				.replace(headingsCommonh2RegExp, headingsCommonh2Template)
 				// unorderd lists
-				.replace(listUlRegExp1, listUlTemplate)
-				.replace(listUlRegExp2, '')
+				.replace(listUlRegExp1, listUlTemplate).replace(listUlRegExp2, '')
 				// ordered lists
-				.replace(listOlRegExp1, listOlTemplate)
-				.replace(listOlRegExp2, '')
+				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
 				// horizontal rule 
 				.replace(horizontalRegExp, horizontalTemplate)
 				// paragraphs
@@ -133,6 +134,8 @@
 				.replace(emphasisRegExp, emphasisTemplate)
 				// line breaks
 				.replace(lineBreaksRegExp, lineBreaksTemplate)
+				// XSS href
+				.replace(XSSFilterHrefRegExp, XSSFilterHrefTemplate)
 		);
 
 		// replace code block placeholders

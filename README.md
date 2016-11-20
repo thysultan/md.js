@@ -23,6 +23,7 @@ will output the following
 ```
 
 and `<script>alert(1);</script>` will be converted to `&lt;script&gt;alert(1)&lt;/script&gt;`
+and `<a href="javascript:alert('xss')"></a>` will be converted to `<a href="#javascript&#58;alert('xss')"></a>`
 
 ## Browser Support
 

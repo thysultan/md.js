@@ -26,6 +26,7 @@ var markdown = (
 
 	XSS filter <script>alert(1);</script> should not alert.
 
+	XSS filter href <a href="javascript:alert('xss')">*you*</a>
 
 	Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
 	Cupiditate doloremque sed vero **excepturi**.
