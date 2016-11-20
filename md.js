@@ -18,10 +18,12 @@
 		window.md = factory();
 	}
 }(function () {
-	var XSSFilterRegExp = /<script>([^]+?)<\/script>/gm;
-	var XSSFilterTemplate = '&lt;script&gt;$1&lt;/script&gt;';
+	var escapeQuotesRegExp = /"/g;
 
-	var XSSFilterHrefRegExp = /(<a[^>]*? href[^]*?)(javascript)[\n\t ]*:/gm;
+	var XSSFilterRegExp = /<(script)>([^]+?)<\/(script)>/gmi;
+	var XSSFilterTemplate = '&lt;$1&gt;$2&lt;/$3&gt;';
+
+	var XSSFilterHrefRegExp = /(<a[^>]*? href[^]*?)(javascript)[\n\t ]*:/gmi;
 	var XSSFilterHrefTemplate = '$1#$2&#58;';
 
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
@@ -43,7 +45,9 @@
 	var blockCodeRegExp = /```(.*)\n([^]+)```(?!```)/gm;
 
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
-	var imagesTemplate = '<img src="$2" alt="$1">';
+	var imagesTemplate = function (match, group1, group2) {
+		return '<img src="'+group2.replace(escapeQuotesRegExp, "'")+'" alt="'+group1.replace(escapeQuotesRegExp, "'")+'">';
+	};
 
 	var headingsRegExp = /^(#+) +(.*)/gm;
 	var headingsTemplate = function (match, hash, content) {
@@ -67,11 +71,14 @@
 	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
 	var emphasisTemplate = '<em>$1</em>';
 
-	var linksWithTitleRegExp = /\[(.*?)\]\((.*?) "(.*)"\)/gm;
-	var linksWithTitleTemplate = '<a href="$2" title="$3">$1</a>';
+	var linksRegExp = /\[(.*?)\]\((.*?)(?:|"(.*)")\)+/gm;
+	var linksTemplate = function (match, group1, group2, group3) {
+		var link = group2.replace(escapeQuotesRegExp, "'");
+		var text = group1.replace(escapeQuotesRegExp, "'");
+		var title = group3 ? 'title="'+group3.replace(escapeQuotesRegExp, "'")+'"' : '';
 
-	var linksRegExp = /\[(.*?)\]\((.*?)\)/gm;
-	var linksTemplate = '<a href="$2">$1</a>';
+		return '<a href="'+link+'"'+title+'>'+text+'</a>';
+	};
 
 	var listUlRegExp1 = /^[\t ]*?(?:-|\+|\*) (.*)/gm;
 	var listUlRegExp2 = /(\<\/ul\>\n(.*)\<ul\>*)+/g;
@@ -136,8 +143,6 @@
 				.replace(cssFilterRegExp, cssFilterTemplate)
 				// paragraphs
 				.replace(paragraphsRegExp, paragraphsTemplate)
-				// links with title
-				.replace(linksWithTitleRegExp, linksWithTitleTemplate)
 				// links
 				.replace(linksRegExp, linksTemplate)
 				// strong

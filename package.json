@@ -22,5 +22,8 @@
 	"bugs": {
 		"url": "https://github.com/thysultan/md.js/issues"
 	},
+	"scripts": {
+		"test": "node ./tests/index.js"
+	},
 	"files": ["md.min.js", "md.js"]
 }

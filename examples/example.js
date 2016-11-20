@@ -25,8 +25,11 @@ var markdown = (
 	Cupiditate doloremque sed vero __excepturi__.
 
 	XSS filter <script>alert(1);</script> should not alert.
+	XSS filter upperCase <SCRIPT>alert(1);</SCRIPT> should not alert.
 
 	XSS filter href <a href="javascript:alert('xss')">*you*</a>
+	
+	XSS filter upperCase href <a HREF="javascript:alert('xss')">*you*</a>
 
 	Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
 	Cupiditate doloremque sed vero **excepturi**.
@@ -73,7 +76,11 @@ var markdown = (
 		}
 	</style>
 
+	XSS With Image ![](" onerror="alert())
+	XSS Anchors [test](" onerror="alert())
+
 	Another paragraphs # Heading, will not match this
+	Escape \* should world and so should \#
 `);
 
 // markdown = '#  Title\n\nAnd *now* [a link](http://www.google.com) to **follow** and [another](http://yahoo.com/).\n\n* One\n* Two\n* Three\n\n## Subhead\n\nOne **two** three **four** five.\n\nOne __two__ three _four_ five __six__ seven _eight_.\n\n1. One\n2. Two\n3. Three\n\nMore text with `inline($code)` and :"quote": sample.\n\n> A block quote\n> across two lines.\nMore text...';
