@@ -34,6 +34,9 @@
 		return group1.replace(/(^\n|$\n)/gm, '');
 	};
 
+	var eventsFilterRegExp = /(<[^]+?)(on.*?=.*?)(.*>)/gm;
+	var eventsFilterTemplate = '$1$3';
+
 	var cssFilterRegExp = /(<style>[^]*<\/style>)/gm;
 	var cssFilterTemplate = htmlFilterTemplate;
 
@@ -111,6 +114,8 @@
 			markdown
 				// XSS script tags
 				.replace(XSSFilterRegExp, XSSFilterTemplate)
+				// filter events
+				.replace(eventsFilterRegExp, eventsFilterTemplate)
 				// collect code blocks and replace with placeholder
 				// we do this to avoid code blocks matching the paragraph regexp
 				.replace(blockCodeRegExp, function (match, lang, block) {

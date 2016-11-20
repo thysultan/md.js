@@ -9,6 +9,9 @@ var markdown = (
 	### Heading 3
 	#### *Heading 4*
 
+	<img onerror="alert()">
+	<img src="" alt="<a href="onerror='alert(String.fromCharCode(88,83,83))'b="></a>">
+
 	Heading 1 (commonmark)
 	====
 
