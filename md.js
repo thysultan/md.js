@@ -18,6 +18,9 @@
 		window.md = factory();
 	}
 }(function () {
+	var XSSFilterRegExp = /<script>([^]+?)<\/script>/gm;
+	var XSSFilterTemplate = '&lt;script&gt;$1&lt;/script&gt;';
+
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
@@ -36,10 +39,10 @@
 		var length = hash.length; return '<h'+length+'>'+content+'</h'+length+'>';
 	}
 
-	var headingsCommonh2RegExp = /^[^\n\t ](.*)\n-+/gm;
-	var headingsCommonh1RegExp = /^[^\n\t ](.*)\n=+/gm;
-	var headingsCommonh1Template = '<h1>$1</h1>';
-	var headingsCommonh2Template = '<h2>$1</h2>';
+	var headingsCommonh2RegExp = /^([^\n\t ])(.*)\n----+/gm;
+	var headingsCommonh1RegExp = /^([^\n\t ])(.*)\n====+/gm;
+	var headingsCommonh1Template = '<h1>$1$2</h1>';
+	var headingsCommonh2Template = '<h2>$1$2</h2>';
 
 	var paragraphsRegExp = /^([^-><#\d\+\_\*\t\n\[\! \{])(.*)/gm;
 	var paragraphsTemplate = '<p>$1$2</p>';
@@ -59,11 +62,11 @@
 	var linksRegExp = /\[(.*?)\]\((.*?)\)/gm;
 	var linksTemplate = '<a href="$2">$1</a>';
 
-	var listUlRegExp1 = /^.*?(?:-|\+|\*) (.*)/gm;
+	var listUlRegExp1 = /^[\t ]*?(?:-|\+|\*) (.*)/gm;
 	var listUlRegExp2 = /(\<\/ul\>\n(.*)\<ul\>*)+/g;
 	var listUlTemplate = '<ul><li>$1</li></ul>';
 
-	var listOlRegExp1 = /^.*?(?:\d(?:\)|\.)) (.*)/gm;
+	var listOlRegExp1 = /^[\t ]*?(?:\d(?:\)|\.)) (.*)/gm;
 	var listOlRegExp2 = /(\<\/ol\>\n(.*)\<ol\>*)+/g;
 	var listOlTemplate = '<ol><li>$1</li></ol>';
 
@@ -83,9 +86,11 @@
 
 		// format, removes tabs, leading and trailing spaces
 		markdown = (
-			// collect code blocks and replace with placeholder
-			// we do this to avoid code blocks matching the paragraph regexp
 			markdown
+				// convert <script> tags
+				.replace(XSSFilterRegExp, XSSFilterTemplate)
+				// collect code blocks and replace with placeholder
+				// we do this to avoid code blocks matching the paragraph regexp
 				.replace(blockCodeRegExp, function (match, lang, block) {
 					var placeholder = '{code-block-'+index+'}';
 					var regex = new RegExp('{code-block-'+index+'}', 'g');

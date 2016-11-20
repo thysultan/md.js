@@ -22,6 +22,8 @@ will output the following
 </code></pre>
 ```
 
+and `<script>alert(1);</script>` will be converted to `&lt;script&gt;alert(1)&lt;/script&gt;`
+
 ## Browser Support
 
 * Edge
