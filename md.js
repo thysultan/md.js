@@ -27,18 +27,18 @@
 	var XSSFilterInlineJSRegExp = /(<.*? .*?=.*?)(javascript:.*?)(.*>)/gmi;
 	var XSSFilterInlineJSTemplate = '$1#$2&#58;$3';
 
-	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
+	var removeTabsRegExp = /^[\t ]+|[\t ]$/gm;
 
 	var htmlFilterRegExp = /(<.*>[\t ]*\n^.*)/gm;
 	var htmlFilterTemplate = function (match, group1) { 
-		return group1.replace(/(^\n|$\n)/gm, '');
+		return group1.replace(/^\n|$\n/gm, '');
 	};
-
-	var eventsFilterRegExp = /(<[^]+?)(on.*?=.*?)(.*>)/gm;
-	var eventsFilterTemplate = '$1$3';
 
 	var cssFilterRegExp = /(<style>[^]*<\/style>)/gm;
 	var cssFilterTemplate = htmlFilterTemplate;
+
+	var eventsFilterRegExp = /(<[^]+?)(on.*?=.*?)(.*>)/gm;
+	var eventsFilterTemplate = '$1$3';
 
 	var blockQuotesRegExp = /^.*?> (.*)/gm;
 	var blockQuotesTemplate = '<blockquote>$1</blockquote>';
@@ -66,8 +66,14 @@
 	var headingsCommonh1Template = '<h1>$1$2</h1>';
 	var headingsCommonh2Template = '<h2>$1$2</h2>';
 
-	var paragraphsRegExp = /^([^-><#\d\+\_\*\t\n\[\! \{])(.*)/gm;
-	var paragraphsTemplate = '<p>$1$2</p>';
+	var paragraphsRegExp = /^([^-><#\d\+\_\*\t\n\[\! \{])([^]*?)(|  )(?:\n\n)/gm;
+	var paragraphsTemplate = function (match, group1, group2, group3) {
+		var leadingCharater = group1;
+		var body = group2;
+		
+		var trailingSpace = group3 ? '\n<br>\n' : '\n';
+		return '<p>'+leadingCharater+body+'</p>'+trailingSpace;
+	};
 
 	var horizontalRegExp = /^.*?(?:---|\*\*\*|- - -|\* \* \*)/gm;
 	var horizontalTemplate = '<hr>';
@@ -108,6 +114,12 @@
 	return function md (markdown) {
 		var code = [];
 		var index = 0;
+		var length = markdown.length;
+
+		// to allow matching trailing paragraphs
+		if (markdown[length-1] !== '\n' && markdown[length-2] !== '\n') {
+			markdown += '\n\n';
+		}
 
 		// format, removes tabs, leading and trailing spaces
 		markdown = (
@@ -126,8 +138,8 @@
 
 					return placeholder;
 				})
-				// whitespace
-				.replace(removeWhiteSpaceRegExp, '')
+				// tabs
+				.replace(removeTabsRegExp, '')
 				// blockquotes
 				.replace(blockQuotesRegExp, blockQuotesTemplate)
 				// inline code
@@ -175,6 +187,6 @@
 			});
 		}
 
-		return markdown;
+		return markdown.trim();
 	}
 }));

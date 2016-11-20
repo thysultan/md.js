@@ -182,11 +182,11 @@ var tests = {
 			Another paragraphs # Heading, will not match this
 		`,
 		expected: `
-<p>Lorem ipsum dolor sit amet, <em>consectetur</em> adipisicing elit.</p>
-<p>Cupiditate doloremque sed vero <strong>excepturi</strong>.</p>
-<p>Lorem ipsum dolor sit amet, <em>consectetur</em> adipisicing elit.</p>
-<p>Cupiditate doloremque sed vero <strong>excepturi</strong>.</p>
-<p>Another paragraphs # Heading, will not match this</p>
+<p>Lorem ipsum dolor sit amet, <em>consectetur</em> adipisicing elit.
+Cupiditate doloremque sed vero <strong>excepturi</strong>.
+Lorem ipsum dolor sit amet, <em>consectetur</em> adipisicing elit.
+Cupiditate doloremque sed vero <strong>excepturi</strong>.
+Another paragraphs # Heading, will not match this</p>
 		`
 	},
 	emphasis: {
@@ -222,7 +222,7 @@ var tests = {
 	},
 	code: {
 		name: 'code',
-		sample: 'Use the `printf()` function\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
+		sample: 'Use the `printf()` function\n\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
 		expected: '<p>Use the <code>printf()</code> function</p>\n'+
 		'<pre><code class="language-javascript">\t\tvar i = 10;\n\tvar foo = 2;&lt;script&gt;1&lt;/script&gt;\n</code></pre>'
 	}

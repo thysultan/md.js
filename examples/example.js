@@ -1,5 +1,5 @@
 var markdown = (
-	'Use the `printf()` function.\n'+
+	'Use the `printf()` function.\n\n'+
 
 	'```javascript\n\n\t\tvar i = 10;\nvar foo = 2;\n<script>1</script>\n```' +
 
@@ -24,15 +24,8 @@ var markdown = (
 
 	***
 
-	Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
-	Cupiditate doloremque sed vero __excepturi__.
-
-	XSS filter <script>alert(1);</script> should not alert.
-	XSS filter upperCase <SCRIPT>alert(1);</SCRIPT> should not alert.
-
-	XSS filter href <a href="javascript:alert('xss')">*you*</a>
-
-	XSS filter upperCase href <a HREF="javascript:alert('xss')">*you*</a>
+	Paragraphs Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
+	Cupiditate doloremque sed vero __excepturi__.  
 
 	Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
 	Cupiditate doloremque sed vero **excepturi**.
@@ -92,7 +85,13 @@ var markdown = (
 
 	<a href="javascript:alert('xss')">*you*</a>
 
-	
+	XSS filter <script>alert(1);</script> should not alert.
+
+	XSS filter upperCase <SCRIPT>alert(1);</SCRIPT> should not alert.
+
+	XSS filter href <a href="javascript:alert('xss')">*you*</a>
+
+	XSS filter upperCase href <a HREF="javascript:alert('xss')">*you*</a>
 
 	<IMG SRC= onmouseover="alert('xxs')">
 
@@ -101,7 +100,9 @@ var markdown = (
 	<IMG SRC="jav	ascript:alert('XSS');">
 
 	<IMG SRC="jav&#x0A;ascript:alert('XSS');">
-`);
+
+	Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
+	Cupiditate doloremque sed vero __excepturi__.`);
 
 // markdown = '#  Title\n\nAnd *now* [a link](http://www.google.com) to **follow** and [another](http://yahoo.com/).\n\n* One\n* Two\n* Three\n\n## Subhead\n\nOne **two** three **four** five.\n\nOne __two__ three _four_ five __six__ seven _eight_.\n\n1. One\n2. Two\n3. Three\n\nMore text with `inline($code)` and :"quote": sample.\n\n> A block quote\n> across two lines.\nMore text...';
 
