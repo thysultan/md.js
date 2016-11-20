@@ -24,8 +24,8 @@
 	var XSSFilterRegExp = /<(script)>([^]+?)<\/(script)>/gmi;
 	var XSSFilterTemplate = '&lt;$1&gt;$2&lt;/$3&gt;';
 
-	var XSSFilterHrefRegExp = /(<a[^>]*? href[^]*?)(javascript)[\n\t ]*:/gmi;
-	var XSSFilterHrefTemplate = '$1#$2&#58;';
+	var XSSFilterInlineJSRegExp = /(<.*? .*?=.*?)(javascript:.*?)(.*>)/gmi;
+	var XSSFilterInlineJSTemplate = '$1#$2&#58;$3';
 
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
@@ -160,8 +160,8 @@
 				.replace(emphasisRegExp, emphasisTemplate)
 				// line breaks
 				.replace(lineBreaksRegExp, lineBreaksTemplate)
-				// XSS href
-				.replace(XSSFilterHrefRegExp, XSSFilterHrefTemplate)
+				// filter inline js
+				.replace(XSSFilterInlineJSRegExp, XSSFilterInlineJSTemplate)
 		);
 
 		// replace code block placeholders

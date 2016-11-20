@@ -1,4 +1,10 @@
 var markdown = (
+	`
+		<IMG SRC="javascript:alert('XSS');">
+
+		<a href="javascript:alert('xss')">*you*</a>
+	`+
+
 	'Use the `printf()` function.\n'+
 
 	'```javascript\n\n\t\tvar i = 10;\nvar foo = 2;\n<script>1</script>\n```' +
