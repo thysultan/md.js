@@ -21,10 +21,15 @@ var tests = {
 			## Heading 2
 			### Heading 3
 			#### Heading 4
+			Heading 1
+			====
+			Heading 2
+			----
 		`,
 		expected: `
 <h1>Heading 1</h1><h2>Heading 2</h2>
 <h3>Heading 3</h3><h4>Heading 4</h4>
+<h1>Heading 1</h1><h2>Heading 2</h2>
 		`
 	},
 	lists: {
@@ -131,6 +136,12 @@ var tests = {
 		expected: `
 <div style="color:red">This is a styled html div</div>
 		`
+	},
+	code: {
+		name: 'code',
+		sample: 'Use the `printf()` function\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
+		expected: '<p>Use the <code>printf()</code> function</p>\n'+
+		'<pre><code class="language-javascript">\t\tvar i = 10;\n\tvar foo = 2;&lt;script&gt;1&lt;/script&gt;\n</code></pre>'
 	}
 };
 

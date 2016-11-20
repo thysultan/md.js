@@ -28,7 +28,7 @@ var markdown = (
 	XSS filter upperCase <SCRIPT>alert(1);</SCRIPT> should not alert.
 
 	XSS filter href <a href="javascript:alert('xss')">*you*</a>
-	
+
 	XSS filter upperCase href <a HREF="javascript:alert('xss')">*you*</a>
 
 	Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
@@ -76,8 +76,9 @@ var markdown = (
 		}
 	</style>
 
-	XSS With Image ![](" onerror="alert())
-	XSS Anchors [test](" onerror="alert())
+	XSS With Image ![]("onerror="alert())
+
+	XSS Anchors [test]("onerror="alert())
 
 	Another paragraphs # Heading, will not match this
 	Escape \* should world and so should \#

@@ -19,6 +19,7 @@
 	}
 }(function () {
 	var escapeQuotesRegExp = /"/g;
+	var escapeQuotesTemplate = "'";
 
 	var XSSFilterRegExp = /<(script)>([^]+?)<\/(script)>/gmi;
 	var XSSFilterTemplate = '&lt;$1&gt;$2&lt;/$3&gt;';
@@ -46,7 +47,10 @@
 
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
 	var imagesTemplate = function (match, group1, group2) {
-		return '<img src="'+group2.replace(escapeQuotesRegExp, "'")+'" alt="'+group1.replace(escapeQuotesRegExp, "'")+'">';
+		var src = group2.replace(escapeQuotesRegExp, escapeQuotesTemplate);
+		var alt = group1.replace(escapeQuotesRegExp, escapeQuotesTemplate);
+
+		return '<img src="'+src+'" alt="'+alt+'">';
 	};
 
 	var headingsRegExp = /^(#+) +(.*)/gm;
@@ -73,9 +77,9 @@
 
 	var linksRegExp = /\[(.*?)\]\(([^\t\n ]*)(?:| "(.*)")\)+/gm;
 	var linksTemplate = function (match, group1, group2, group3) {
-		var link = group2.replace(escapeQuotesRegExp, "'");
-		var text = group1.replace(escapeQuotesRegExp, "'");
-		var title = group3 ? ' title="'+group3.replace(escapeQuotesRegExp, "'")+'"' : '';
+		var link = group2.replace(escapeQuotesRegExp, escapeQuotesTemplate);
+		var text = group1.replace(escapeQuotesRegExp, escapeQuotesTemplate);
+		var title = group3 ? ' title="'+group3.replace(escapeQuotesRegExp, escapeQuotesTemplate)+'"' : '';
 
 		return '<a href="'+link+'"'+title+'>'+text+'</a>';
 	};
