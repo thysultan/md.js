@@ -63,6 +63,12 @@ var markdown = (
 
 	<div style="color:red">This is a styled html div</div>
 
+	<style>
+		#foo {
+			color: red;
+		}
+	</style>
+
 	Another paragraphs
 `);
 
