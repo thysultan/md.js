@@ -118,6 +118,9 @@ var tests = {
 	lists: {
 		name: 'lists',
 		sample: `
+			- [x] ul list 1
+			- [ ] ul list 2
+
 			- ul list 1
 			- ul list 2
 
@@ -137,6 +140,7 @@ var tests = {
 			3) ol list 3
 		`,
 		expected: `
+<ul><li><input type="checkbox" disabled checked> ul list 1</li><li><input type="checkbox" disabled> ul list 2</li></ul>
 <ul><li>ul list 1</li><li>ul list 2</li></ul>
 <ul><li>ul list 1</li><li>ul list 2</li><li>ul list 3</li></ul>
 <ul><li>ul list 1</li><li>ul list 2</li></ul>

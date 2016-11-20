@@ -104,6 +104,11 @@
 	var lineBreaksRegExp = /^\n\n+/gm;
 	var lineBreaksTemplate = '<br>';
 
+	var checkBoxesRegExp = /\[( |x)\]/g;
+	var checkBoxesTemplate = function (match, group1) {
+		return '<input type="checkbox" disabled' + (group1.toLowerCase() === 'x' ? ' checked' : '') + '>'
+	};
+
 
 	/**
 	 * markdown parser
@@ -158,6 +163,8 @@
 				.replace(listUlRegExp1, listUlTemplate).replace(listUlRegExp2, '')
 				// ordered lists
 				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
+				// checkboxes
+				.replace(checkBoxesRegExp, checkBoxesTemplate)
 				// filter html
 				.replace(htmlFilterRegExp, htmlFilterTemplate)
 				// filter css

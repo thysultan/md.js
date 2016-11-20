@@ -32,6 +32,9 @@ var markdown = (
 
 	[a link](http://google.com)
 
+	- [ ] ul list 1
+	- [x] ul list 2
+
 	- ul list 1
 	- ul list 2
 
