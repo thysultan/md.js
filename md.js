@@ -21,8 +21,8 @@
 	var XSSFilterRegExp = /<script>([^]+?)<\/script>/gm;
 	var XSSFilterTemplate = '&lt;script&gt;$1&lt;/script&gt;';
 
-	var XSSFilterHrefRegExp = /(javascript)[\n\t ]*:/gm;
-	var XSSFilterHrefTemplate = '#$1&#58;';
+	var XSSFilterHrefRegExp = /(<a[^>]*? href[^]*?)(javascript)[\n\t ]*:/gm;
+	var XSSFilterHrefTemplate = '$1#$2&#58;';
 
 	var removeWhiteSpaceRegExp = /^[\t ]+|[\t ]$/gm;
 
