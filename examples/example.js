@@ -24,7 +24,7 @@ var markdown = (
 
 	***
 
-	Paragraphs Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
+	Paragraphs Lorem ipsum ~~strike this~~ sit amet, _consectetur_ adipisicing elit. 
 	Cupiditate doloremque sed vero __excepturi__.  
 
 	Lorem ipsum dolor sit amet, *consectetur* adipisicing elit. 
@@ -80,31 +80,42 @@ var markdown = (
 	XSS Anchors [test]("onerror="alert())
 
 	Another paragraphs # Heading, will not match this
-	Escape \* should world and so should \#
+	Escape \\* should world and so should \\# as well as \\~~strike right?
 
 	## XSS Tests
 
 	<IMG SRC="javascript:alert('XSS');">
 
+	
 	<a href="javascript:alert('xss')">*you*</a>
 
+	
 	XSS filter <script>alert(1);</script> should not alert.
 
+	
 	XSS filter upperCase <SCRIPT>alert(1);</SCRIPT> should not alert.
 
-	XSS filter href <a href="javascript:alert('xss')">*you*</a>
 
-	XSS filter upperCase href <a HREF="javascript:alert('xss')">*you*</a>
+	XSS filter href <a href="javascript:alert('xss')">you</a>
+
+
+	XSS filter upperCase href <a HREF="javascript:alert('xss')">you</a>
+
 
 	<IMG SRC= onmouseover="alert('xxs')">
 
+
 	<IMG """><SCRIPT>alert("XSS")</SCRIPT>">
+
 
 	<IMG SRC="jav	ascript:alert('XSS');">
 
+
 	<IMG SRC="jav&#x0A;ascript:alert('XSS');">
 
-	Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
+	---
+
+	Trailing Paragraph Lorem ipsum dolor sit amet, _consectetur_ adipisicing elit. 
 	Cupiditate doloremque sed vero __excepturi__.`);
 
 // markdown = '#  Title\n\nAnd *now* [a link](http://www.google.com) to **follow** and [another](http://yahoo.com/).\n\n* One\n* Two\n* Three\n\n## Subhead\n\nOne **two** three **four** five.\n\nOne __two__ three _four_ five __six__ seven _eight_.\n\n1. One\n2. Two\n3. Three\n\nMore text with `inline($code)` and :"quote": sample.\n\n> A block quote\n> across two lines.\nMore text...';

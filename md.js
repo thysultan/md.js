@@ -48,7 +48,7 @@
 
 	var blockCodeRegExp = /```(.*)\n([^]+)```(?!```)/gm;
 
-	var imagesRegExp = /!\[(.*)\]\((.*)\)/gm;
+	var imagesRegExp = /!\[(.*)\]\((.*)\)/g;
 	var imagesTemplate = function (match, group1, group2) {
 		var src = group2.replace(escapeQuotesRegExp, escapeQuotesTemplate);
 		var alt = group1.replace(escapeQuotesRegExp, escapeQuotesTemplate);
@@ -78,11 +78,14 @@
 	var horizontalRegExp = /^.*?(?:---|\*\*\*|- - -|\* \* \*)/gm;
 	var horizontalTemplate = '<hr>';
 
-	var strongRegExp = /(?:\*\*|\_\_)([^\*_]+?)(?:\*\*|\_\_)/gm;
+	var strongRegExp = /(?:\*\*|\_\_)([^\*\n_]+?)(?:\*\*|\_\_)/g;
 	var strongTemplate = '<strong>$1</strong>';
 
-	var emphasisRegExp = /(?:\*|\_)([^\*_]+?)(?:\*|\_)/gm;
+	var emphasisRegExp = /(?:\*|\_)([^\*\n_]+?)(?:\*|\_)/g;
 	var emphasisTemplate = '<em>$1</em>';
+
+	var strikeRegExp = /(?:~~)([^~]+?)(?:~~)/g;
+	var strikeTemplate = '<del>$1</del>';
 
 	var linksRegExp = /\[(.*?)\]\(([^\t\n ]*)(?:| "(.*)")\)+/gm;
 	var linksTemplate = function (match, group1, group2, group3) {
@@ -177,6 +180,8 @@
 				.replace(strongRegExp, strongTemplate)
 				// emphasis
 				.replace(emphasisRegExp, emphasisTemplate)
+				// strike through
+				.replace(strikeRegExp, strikeTemplate)
 				// line breaks
 				.replace(lineBreaksRegExp, lineBreaksTemplate)
 				// filter inline js

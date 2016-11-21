@@ -5,7 +5,7 @@
 
 [![npm](https://img.shields.io/npm/v/md.js.svg?style=flat)](https://www.npmjs.com/package/md.js) [![licence](https://img.shields.io/badge/licence-MIT-blue.svg?style=flat)](https://github.com/thysultan/md.js/blob/master/LICENSE.md)
 
-MD is a lightweight markdown parser with default support for langauge specific code blocks, for example
+MD is a lightweight markdown parser with default support for langauge specific code blocks and XSS filtering, for example
 
 ```javascript
 // replace . with `
@@ -22,8 +22,9 @@ will output the following
 </code></pre>
 ```
 
-and `<script>alert(1);</script>` will be converted to `&lt;script&gt;alert(1)&lt;/script&gt;`
-and `<a href="javascript:alert('xss')"></a>` will be converted to `<a href="#javascript&#58;alert('xss')"></a>`
+XSS attempt `<script>alert(1);</script>` will be converted to `&lt;script&gt;alert(1)&lt;/script&gt;`
+while `<a href="javascript:alert('xss')"></a>` will be converted to `<a href="#javascript&#58;alert('xss')"></a>`
+and `<img onerror="alert(1)">` inline events will be remove and more.
 
 ## Browser Support
 
@@ -51,6 +52,12 @@ and `<a href="javascript:alert('xss')"></a>` will be converted to `<a href="#jav
 
 ```
 npm install md.js --save
+```
+
+#### Useage
+
+```javascript
+md('# Heading...');
 ```
 
 # Examples

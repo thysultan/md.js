@@ -215,6 +215,11 @@ Another paragraphs # Heading, will not match this</p>
 <strong>excepturi</strong>
 		`
 	},
+	strike: {
+		name: 'strike',
+		sample: `~~consectetur~~`,
+		expected: `<p><del>consectetur</del></p>`
+	},
 	html: {
 		name: 'html',
 		sample: `
