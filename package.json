@@ -2,7 +2,7 @@
 	"name": "md.js",
 	"main": "md.js",
 	"description": "a lightweight markdown parser",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"homepage": "https://github.com/thysultan/md.js",
 	"license": "MIT",
 	"author": {

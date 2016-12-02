@@ -18,13 +18,26 @@
 		window.md = factory();
 	}
 }(function () {
-	var escapeQuotesRegExp = /"/g;
-	var escapeQuotesTemplate = "'";
+	var unicodes = {
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#39;',
+		'&': '&amp;',
+		'[': '&#91;',
+		']': '&#93;',
+		'(': '&#40;',
+		')': '&#41;',
+	};
 
-	var XSSFilterRegExp = /<(script)>([^]+?)<\/(script)>/gmi;
+	var resc = /[<>&\(\)\[\]"']/g;
+
+	function unicode (char) { return unicodes[char]; }
+
+	var XSSFilterRegExp = /<(script)[^\0]*?>([^\0]+?)<\/(script)>/gmi;
 	var XSSFilterTemplate = '&lt;$1&gt;$2&lt;/$3&gt;';
 
-	var XSSFilterInlineJSRegExp = /(<.*? .*?=.*?)(javascript:.*?)(.*>)/gmi;
+	var XSSFilterInlineJSRegExp = /(<.*? [^\0]*?=[^\0]*?)(javascript:.*?)(.*>)/gmi;
 	var XSSFilterInlineJSTemplate = '$1#$2&#58;$3';
 
 	var removeTabsRegExp = /^[\t ]+|[\t ]$/gm;
@@ -50,8 +63,8 @@
 
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/g;
 	var imagesTemplate = function (match, group1, group2) {
-		var src = group2.replace(escapeQuotesRegExp, escapeQuotesTemplate);
-		var alt = group1.replace(escapeQuotesRegExp, escapeQuotesTemplate);
+		var src = group2.replace(resc, unicode);
+		var alt = group1.replace(resc, unicode);
 
 		return '<img src="'+src+'" alt="'+alt+'">';
 	};
@@ -89,9 +102,9 @@
 
 	var linksRegExp = /\[(.*?)\]\(([^\t\n ]*)(?:| "(.*)")\)+/gm;
 	var linksTemplate = function (match, group1, group2, group3) {
-		var link = group2.replace(escapeQuotesRegExp, escapeQuotesTemplate);
-		var text = group1.replace(escapeQuotesRegExp, escapeQuotesTemplate);
-		var title = group3 ? ' title="'+group3.replace(escapeQuotesRegExp, escapeQuotesTemplate)+'"' : '';
+		var link = group2.replace(resc, unicode);
+		var text = group1.replace(resc, unicode);
+		var title = group3 ? ' title="'+group3.replace(resc, unicode)+'"' : '';
 
 		return '<a href="'+link+'"'+title+'>'+text+'</a>';
 	};

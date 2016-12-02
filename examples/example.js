@@ -122,4 +122,24 @@ var markdown = (
 
 var html = md(markdown);
 document.body.insertAdjacentHTML('beforeend', html);
-console.log(html);
+
+// console.log(html);
+
+console.log(md('![](" onerror="alert())'));
+
+console.log(md('<img src="" onerror=onerror="alert()">'));
+
+console.log(md('<script language="text/javascript">alert()</script>'));
+
+console.log(md("![[](onerror='alert(String.fromCharCode(88,83,83))'b=)]()"));
+
+console.log(md(`
+<blockquote>
+	<p>hello <a name="n"
+	href="javascript:alert('xss')"><em>you</em></a></p>
+</blockquote>
+`));
+
+console.log(md(`
+	[some text](javascript:alert('xss'))
+`));

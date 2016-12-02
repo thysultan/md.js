@@ -45,7 +45,7 @@ and `<img onerror="alert(1)">` inline events will be remove and more.
 #### CDN
 
 ```html
-<script src=https://unpkg.com/md.js@0.1.2/md.min.js></script>
+<script src=https://unpkg.com/md.js@0.2.2/md.min.js></script>
 ```
 
 #### npm
