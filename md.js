@@ -40,6 +40,11 @@
 	var XSSFilterInlineJSRegExp = /(<.*? [^\0]*?=[^\0]*?)(javascript:.*?)(.*>)/gmi;
 	var XSSFilterInlineJSTemplate = '$1#$2&#58;$3';
 
+	var XSSFilterImageRegExp = /<img([^\0]*?onerror=)([^\0]*?)>/gmi;
+	var XSSFilterImageTemplate = function (match, group1, group2) {
+		return '<img' + group1 + group2.replace(resc, unicode) + '>';
+	};
+
 	var removeTabsRegExp = /^[\t ]+|[\t ]$/gm;
 
 	var htmlFilterRegExp = /(<.*>[\t ]*\n^.*)/gm;
@@ -147,6 +152,8 @@
 			markdown
 				// XSS script tags
 				.replace(XSSFilterRegExp, XSSFilterTemplate)
+				// XSS image onerror
+				.replace(XSSFilterImageRegExp, XSSFilterImageTemplate)
 				// filter events
 				.replace(eventsFilterRegExp, eventsFilterTemplate)
 				// collect code blocks and replace with placeholder
