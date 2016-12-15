@@ -141,10 +141,15 @@ var tests = {
 		`,
 		expected: `
 <ul><li><input type="checkbox" disabled checked> ul list 1</li><li><input type="checkbox" disabled> ul list 2</li></ul>
+
 <ul><li>ul list 1</li><li>ul list 2</li></ul>
+
 <ul><li>ul list 1</li><li>ul list 2</li><li>ul list 3</li></ul>
+
 <ul><li>ul list 1</li><li>ul list 2</li></ul>
+
 <ol><li>ol list 1</li><li>ol list 2</li><li>ol list 3</li></ol>
+
 <ol><li>ol list 1</li><li>ol list 2</li><li>ol list 3</li></ol>
 		`
 	},
@@ -232,7 +237,7 @@ Another paragraphs # Heading, will not match this</p>
 	code: {
 		name: 'code',
 		sample: 'Use the `printf()` function\n\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
-		expected: '<p>Use the <code>printf()</code> function</p>\n'+
+		expected: '<p>Use the <code>printf&#40;&#41;</code> function</p>\n'+
 		'<pre><code class="language-javascript">\t\tvar i = 10;\n\tvar foo = 2;&lt;script&gt;1&lt;/script&gt;\n</code></pre>'
 	}
 };

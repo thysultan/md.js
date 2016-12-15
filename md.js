@@ -32,7 +32,7 @@
 
 	var resc = /[<>&\(\)\[\]"']/g;
 
-	function unicode (char) { return unicodes[char]; }
+	function unicode (char) { return unicodes[char] || char; }
 
 	var XSSFilterRegExp = /<(script)[^\0]*?>([^\0]+?)<\/(script)>/gmi;
 	var XSSFilterTemplate = '&lt;$1&gt;$2&lt;/$3&gt;';
@@ -62,9 +62,11 @@
 	var blockQuotesTemplate = '<blockquote>$1</blockquote>';
 
 	var inlineCodeRegExp = /`([^`]+?)`/g;
-	var inlineCodeTemplate = '<code>$1</code>';
+	var inlineCodeTemplate = function (match, group1) {
+		return '<code>'+group1.replace(resc, unicode)+'</code>'
+	}
 
-	var blockCodeRegExp = /```(.*)\n([^]+)```(?!```)/gm;
+	var blockCodeRegExp = /```(.*)\n([^\0]+?)```(?!```)/gm;
 
 	var imagesRegExp = /!\[(.*)\]\((.*)\)/g;
 	var imagesTemplate = function (match, group1, group2) {
@@ -138,6 +140,10 @@
 	 * @return {string}
 	 */
 	return function md (markdown) {
+		if (!markdown) {
+			return '';
+		}
+
 		var code = [];
 		var index = 0;
 		var length = markdown.length;
@@ -150,22 +156,22 @@
 		// format, removes tabs, leading and trailing spaces
 		markdown = (
 			markdown
-				// XSS script tags
-				.replace(XSSFilterRegExp, XSSFilterTemplate)
-				// XSS image onerror
-				.replace(XSSFilterImageRegExp, XSSFilterImageTemplate)
-				// filter events
-				.replace(eventsFilterRegExp, eventsFilterTemplate)
 				// collect code blocks and replace with placeholder
 				// we do this to avoid code blocks matching the paragraph regexp
 				.replace(blockCodeRegExp, function (match, lang, block) {
 					var placeholder = '{code-block-'+index+'}';
 					var regex = new RegExp('{code-block-'+index+'}', 'g');
 
-					code[index++] = {lang: lang, block: block, regex: regex};
+					code[index++] = {lang: lang, block: block.replace(resc, unicode), regex: regex};
 
 					return placeholder;
 				})
+				// XSS script tags
+				.replace(XSSFilterRegExp, XSSFilterTemplate)
+				// XSS image onerror
+				.replace(XSSFilterImageRegExp, XSSFilterImageTemplate)
+				// filter events
+				.replace(eventsFilterRegExp, eventsFilterTemplate)
 				// tabs
 				.replace(removeTabsRegExp, '')
 				// blockquotes
@@ -182,10 +188,6 @@
 				.replace(headingsCommonh2RegExp, headingsCommonh2Template)
 				// horizontal rule 
 				.replace(horizontalRegExp, horizontalTemplate)
-				// unorderd lists
-				.replace(listUlRegExp1, listUlTemplate).replace(listUlRegExp2, '')
-				// ordered lists
-				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
 				// checkboxes
 				.replace(checkBoxesRegExp, checkBoxesTemplate)
 				// filter html
@@ -196,6 +198,10 @@
 				.replace(paragraphsRegExp, paragraphsTemplate)
 				// links
 				.replace(linksRegExp, linksTemplate)
+				// unorderd lists
+				.replace(listUlRegExp1, listUlTemplate).replace(listUlRegExp2, '')
+				// ordered lists
+				.replace(listOlRegExp1, listOlTemplate).replace(listOlRegExp2, '')
 				// strong
 				.replace(strongRegExp, strongTemplate)
 				// emphasis
