@@ -176,8 +176,6 @@
 				.replace(removeTabsRegExp, '')
 				// blockquotes
 				.replace(blockQuotesRegExp, blockQuotesTemplate)
-				// inline code
-				.replace(inlineCodeRegExp, inlineCodeTemplate)
 				// images
 				.replace(imagesRegExp, imagesTemplate)
 				// headings
@@ -196,6 +194,8 @@
 				.replace(cssFilterRegExp, cssFilterTemplate)
 				// paragraphs
 				.replace(paragraphsRegExp, paragraphsTemplate)
+				// inline code
+				.replace(inlineCodeRegExp, inlineCodeTemplate)
 				// links
 				.replace(linksRegExp, linksTemplate)
 				// unorderd lists
