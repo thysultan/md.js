@@ -58,7 +58,7 @@
 	var eventsFilterRegExp = /(<[^]+?)(on.*?=.*?)(.*>)/gm;
 	var eventsFilterTemplate = '$1$3';
 
-	var blockQuotesRegExp = /^.*?> (.*)/gm;
+	var blockQuotesRegExp = /^[ \t]*> (.*)/gm;
 	var blockQuotesTemplate = '<blockquote>$1</blockquote>';
 
 	var inlineCodeRegExp = /`([^`]+?)`/g;
@@ -139,7 +139,7 @@
 	 * @param  {string} markdown
 	 * @return {string}
 	 */
-	return function md (markdown) {
+	function md (markdown) {
 		if (!markdown) {
 			return '';
 		}
@@ -227,4 +227,6 @@
 
 		return markdown.trim();
 	}
+
+	return md;
 }));

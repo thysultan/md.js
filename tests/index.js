@@ -153,8 +153,8 @@ var tests = {
 <ol><li>ol list 1</li><li>ol list 2</li><li>ol list 3</li></ol>
 		`
 	},
-	blockqoutes: {
-		name: 'blockqoutes',
+	blockquotes: {
+		name: 'blockquotes',
 		sample: `> hello world what is this`,
 		expected: `<blockquote>hello world what is this</blockquote>`
 	},
@@ -236,8 +236,8 @@ Another paragraphs # Heading, will not match this</p>
 	},
 	code: {
 		name: 'code',
-		sample: 'Use the `printf()` function\n\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
-		expected: '<p>Use the <code>printf&#40;&#41;</code> function</p>\n'+
+		sample: 'Use the `() => {}` function\n\n```javascript\n\t\tvar i = 10;\n\tvar foo = 2;<script>1</script>\n```',
+		expected: '<p>Use the <code>&#40;&#41; =&gt; {}</code> function</p>\n'+
 		'<pre><code class="language-javascript">\t\tvar i = 10;\n\tvar foo = 2;&lt;script&gt;1&lt;/script&gt;\n</code></pre>'
 	}
 };
