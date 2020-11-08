@@ -55,7 +55,7 @@
 	var cssFilterRegExp = /(<style>[^]*<\/style>)/gm;
 	var cssFilterTemplate = htmlFilterTemplate;
 
-	var eventsFilterRegExp = /(<[^]+?)(on.*?=.*?)(.*>)/gm;
+	var eventsFilterRegExp = /(<[^]+?)(\bon\w+=.*?)(.*>)/gm;
 	var eventsFilterTemplate = '$1$3';
 
 	var blockQuotesRegExp = /^[ \t]*> (.*)/gm;
